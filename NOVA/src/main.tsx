@@ -21,7 +21,7 @@ AOS.init()
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
 if (!PUBLISHABLE_KEY) {
-  console.warn("Missing Publishable Key. Ensure VITE_CLERK_PUBLISHABLE_KEY is set.")
+  console.warn("Missing Publishable Key. Clerk auth is disabled. Set VITE_CLERK_PUBLISHABLE_KEY in .env to enable it.")
 }
 
 const rootElement = document.getElementById('root')
@@ -31,8 +31,12 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY || "missing_key"} afterSignOutUrl="/">
+    {PUBLISHABLE_KEY ? (
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <App />
+      </ClerkProvider>
+    ) : (
       <App />
-    </ClerkProvider>
+    )}
   </StrictMode>,
 )

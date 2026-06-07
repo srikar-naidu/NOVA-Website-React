@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useUser, SignInButton, useAuth } from '@clerk/clerk-react';
+
+// Clerk hooks — only available when ClerkProvider wraps the app
+let useUserHook: any = () => ({ user: null, isSignedIn: false });
+let useAuthHook: any = () => ({ getToken: async () => null });
+let SignInButtonComp: any = null;
+
+try {
+  const clerk = await import('@clerk/clerk-react');
+  // Test if ClerkProvider is active by checking if the module loaded
+  useUserHook = clerk.useUser;
+  useAuthHook = clerk.useAuth;
+  SignInButtonComp = clerk.SignInButton;
+} catch (e) {
+  // Clerk not available
+}
 
 interface TeamPost {
   _id: string;
@@ -22,8 +36,19 @@ interface TeamPost {
 }
 
 const TeamFinderPage: React.FC = () => {
-  const { user, isSignedIn } = useUser();
-  const { getToken } = useAuth();
+  let user: any = null;
+  let isSignedIn = false;
+  let getToken: any = async () => null;
+
+  try {
+    const userResult = useUserHook();
+    user = userResult.user;
+    isSignedIn = userResult.isSignedIn || false;
+    const authResult = useAuthHook();
+    getToken = authResult.getToken;
+  } catch (e) {
+    // Clerk not configured — auth features disabled
+  }
 
   const [posts, setPosts] = useState<TeamPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -156,12 +181,16 @@ const TeamFinderPage: React.FC = () => {
           >
             {showForm ? 'Cancel' : 'Post Your Profile'}
           </button>
-        ) : (
-          <SignInButton mode="modal">
+        ) : SignInButtonComp ? (
+          <SignInButtonComp mode="modal">
             <button className="mt-6 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition-all shadow-[0_0_15px_rgba(37,99,235,0.5)]">
               Sign In to Post
             </button>
-          </SignInButton>
+          </SignInButtonComp>
+        ) : (
+          <button disabled className="mt-6 md:mt-0 bg-gray-700 text-gray-400 px-6 py-3 rounded-full font-semibold cursor-not-allowed">
+            Sign In Required
+          </button>
         )}
       </div>
 
