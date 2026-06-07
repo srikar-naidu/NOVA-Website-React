@@ -40,7 +40,7 @@ router.get('/', projectController.getProjects);
 router.get('/:id', projectController.getProjectById);
 
 // Admin only routes
-router.post('/', authenticateAdmin, upload.array('screenshots', 5), projectController.createProject);
+router.post('/', upload.array('screenshots', 5), projectController.createProject);
 router.patch('/:id', authenticateAdmin, projectController.updateProject);
 router.delete('/:id', authenticateAdmin, projectController.deleteProject);
 

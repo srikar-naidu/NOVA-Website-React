@@ -43,14 +43,24 @@ const HeroSection: React.FC = (): React.JSX.Element => {
             <div className="relative rounded-2xl overflow-hidden border border-gray-800 shadow-[0_0_40px_rgba(0,200,150,0.15)] aspect-video bg-[#0a0a0f] flex items-center justify-center">
               <div className="absolute inset-0 bg-[#0a0a0f] animate-pulse -z-10" />
               <video 
-                autoPlay 
-                muted 
-                loop 
-                playsInline 
+                ref={(el) => {
+                  if (el) {
+                    el.muted = true;
+                    el.play().catch((err) => {
+                      console.warn("Video autoplay blocked:", err);
+                    });
+                  }
+                }}
+                autoPlay={true}
+                muted={true}
+                loop={true}
+                playsInline={true}
                 controls={false}
-                src="/hero-video.mp4" 
-                className="w-full h-full object-cover z-10"
-              />
+                className="w-full h-full object-cover z-10 relative"
+              >
+                <source src="/hero-video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
 
