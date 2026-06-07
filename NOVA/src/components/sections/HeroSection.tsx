@@ -40,8 +40,7 @@ const HeroSection: React.FC = (): React.JSX.Element => {
 
           {/* Right Column - Video */}
           <div className="w-full md:w-1/2" data-aos="fade-left" data-aos-duration="1200">
-            <div className="relative rounded-2xl overflow-hidden border border-gray-800 shadow-[0_0_40px_rgba(0,200,150,0.15)] aspect-video bg-[#0a0a0f] flex items-center justify-center">
-              <div className="absolute inset-0 bg-[#0a0a0f] animate-pulse -z-10" />
+            <div className="relative rounded-2xl overflow-hidden border border-gray-800 shadow-[0_0_40px_rgba(0,200,150,0.15)] aspect-video bg-[#0a0a0f]">
               <video 
                 ref={(el) => {
                   if (el) {
@@ -56,10 +55,9 @@ const HeroSection: React.FC = (): React.JSX.Element => {
                 loop={true}
                 playsInline={true}
                 controls={false}
-                className="w-full h-full object-cover z-10 relative"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'absolute', top: 0, left: 0 }}
               >
                 <source src="/hero-video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
               </video>
             </div>
           </div>
