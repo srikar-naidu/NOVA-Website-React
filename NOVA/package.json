@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "server": "node backend/server.js",
     "start": "npm run build && node backend/server.js"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.61.8",
     "@fortawesome/fontawesome-free": "^7.0.1",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.10.78",

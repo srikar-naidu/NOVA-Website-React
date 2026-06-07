@@ -406,7 +406,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <Page key="p18" number="18">
+    <Page key="p16" number="16">
       <div className="about-page">
         <h2 className="page-title">III. CODE-A-THON</h2>
         <div className="event-poster-container" style={{ marginTop: '20px' }}>
@@ -415,7 +415,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <Page key="p19" number="19">
+    <Page key="p17" number="17">
       <div className="about-page">
         <h2 className="page-title">The Challenge</h2>
         <div className="event-description-container" style={{ padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '15px' }}>
@@ -438,7 +438,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <Page key="p20" number="20">
+    <Page key="p18" number="18">
       <div className="gallery-page">
         <h2 className="page-title">Lab Insights I</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '15px', height: '100%' }}>
@@ -457,7 +457,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <Page key="p21" number="21">
+    <Page key="p19" number="19">
       <div className="gallery-page">
         <h2 className="page-title">Lab Insights II</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '15px', height: '100%' }}>
@@ -471,7 +471,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <Page key="p22" number="22">
+    <Page key="p20" number="20">
       <div className="about-page">
         <h2 className="page-title">The Finalists</h2>
         <div className="event-poster-container" style={{ marginTop: '20px' }}>
@@ -483,7 +483,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <Page key="p23" number="23">
+    <Page key="p21" number="21">
       <div className="winners-page center">
         <h2 className="page-title">The Winners</h2>
         <div className="event-poster-container" style={{ marginTop: '20px' }}>
@@ -495,7 +495,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <Page key="p24" number="24">
+    <Page key="p22" number="22">
       <div className="winners-page center">
         <h2 className="page-title">Thank You</h2>
         <div className="thanks-content" style={{ textAlign: 'center', padding: '0 20px' }}>
@@ -509,7 +509,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <Page key="p25" number="25">
+    <Page key="p23" number="23">
       <div className="winners-page center">
         <div className="end-badge">
           <i className="fas fa-heart" style={{ color: '#ff1493' }}></i>
@@ -521,7 +521,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
       </div>
     </Page>,
 
-    <CoverPage key="p26" title="FIN" subtitle="The End of the Beginning" density="hard" />
+    <CoverPage key="p24" title="FIN" subtitle="The End of the Beginning" density="hard" />
   ], [bookData])
 
   return (
@@ -558,7 +558,7 @@ const EventBook: React.FC<EventBookProps> = ({ data }): React.JSX.Element => {
         >
           <i className="fas fa-chevron-left"></i>
         </button>
-        <span className="page-indicator">Page {currentPage + 1} of 26</span>
+        <span className="page-indicator">Page {currentPage + 1} of {memoPages.length}</span>
         <button 
           onClick={() => {
             if (book.current) {

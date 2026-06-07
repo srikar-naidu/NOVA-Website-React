@@ -1,18 +1,48 @@
-# React + Vite
+# NOVA Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NOVA (Network of Visionary Aspirants) is the official club platform for managing events, registrations, project submissions, and finding teammates.
 
-Currently, two official plugins are available:
+## Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The platform is split into a React frontend and a modular Node.js/Express backend connected to MongoDB.
 
-## React Compiler
+### Frontend (`/src`)
+- **React + Vite**: Fast, modern frontend framework.
+- **Tailwind CSS & Vanilla CSS**: Dynamic styling with global dark theme setup in `index.css`.
+- **Framer Motion**: Animations and scroll interactions.
+- **Features**: Team Finder, Dynamic Event Book (using React PageFlip), 3D Spline renders (lazy-loaded on desktop).
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Backend (`/backend/src`)
+A modular architecture utilizing:
+- `routes/`: Express router definitions.
+- `controllers/`: Request handling and response formatting.
+- `services/`: Business logic, DB operations (MongoDB), and third-party integrations (Resend).
+- `models/`: Mongoose schemas (Registration, Submission, TeamPost, etc.).
+- `middleware/`: Rate limiting, JWT Admin auth, and Cloudinary upload handling.
 
-Note: This will impact Vite dev & build performances.
+## Environment Setup
 
-## Expanding the ESLint configuration
+1. Copy the `.env.example` file in the `backend/` directory to `.env` and fill in your actual credentials (MongoDB URI, Cloudinary keys, Resend API key, JWT Secret).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Running Locally
+
+**Terminal 1 (Frontend):**
+```bash
+npm install
+npm run dev
+```
+*(Note: `npm run dev` uses the `--host` flag to expose your local IP, allowing you to easily test the site on your mobile device on the same Wi-Fi network!)*
+
+**Terminal 2 (Backend):**
+```bash
+cd backend
+npm install
+npm start
+```
+
+## Recent Upgrades
+- Migrated from a monolithic `server.js` file to a clean Route/Controller/Service pattern.
+- Migrated data layer from Notion API to MongoDB.
+- Added automated email notifications using Resend.
+- Added "Find a Squad" (Team Finder) feature for students to connect.
+- Optimized Spline 3D rendering for mobile performance.

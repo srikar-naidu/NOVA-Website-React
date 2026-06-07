@@ -6943,3 +6943,8 @@ main {
         /* 1 per row on phones */
     }
 }
+
+/* Unified Dark Background for all sections and pages */
+body, #root, .hero, .vision, .mission, .team, .about, .sprints-page, .register-page, .teamfinder-page, .ideasprint-page, .ideasprint-section, .event-book-container {
+    background: #0a0a0f !important;
+}

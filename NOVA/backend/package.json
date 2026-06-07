@@ -11,6 +11,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.13.23",
     "@notionhq/client": "^5.1.0",
     "@sendgrid/mail": "^8.1.6",
     "autocannon": "^8.0.0",
@@ -22,7 +23,9 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.6.3",
     "multer": "^1.4.5-lts.1",
-    "node-cron": "^4.2.1"
+    "node-cron": "^4.2.1",
+    "resend": "^6.12.4"
   }
 }
