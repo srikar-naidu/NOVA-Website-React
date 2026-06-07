@@ -13,6 +13,10 @@ interface TeamPost {
   lookingFor: string;
   eventId?: string;
   contactInfo: string;
+  branch: string;
+  year: string;
+  githubLink?: string;
+  linkedinLink?: string;
   isOpen: boolean;
   createdAt: string;
 }
@@ -32,7 +36,11 @@ const TeamFinderPage: React.FC = () => {
     description: '',
     lookingFor: '',
     contactInfo: '',
-    eventId: ''
+    eventId: '',
+    branch: '',
+    year: '',
+    githubLink: '',
+    linkedinLink: ''
   });
   const [skills, setSkills] = useState<string[]>([]);
   const [currentSkill, setCurrentSkill] = useState('');
@@ -72,7 +80,7 @@ const TeamFinderPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.title || !formData.description || !formData.contactInfo) {
+    if (!formData.title || !formData.description || !formData.contactInfo || !formData.branch || !formData.year) {
       alert("Please fill all required fields");
       return;
     }
@@ -95,7 +103,7 @@ const TeamFinderPage: React.FC = () => {
       const data = await res.json();
       if (data.success) {
         setShowForm(false);
-        setFormData({ title: '', description: '', lookingFor: '', contactInfo: '', eventId: '' });
+        setFormData({ title: '', description: '', lookingFor: '', contactInfo: '', eventId: '', branch: '', year: '', githubLink: '', linkedinLink: '' });
         setSkills([]);
         fetchPosts();
       } else {
@@ -173,13 +181,37 @@ const TeamFinderPage: React.FC = () => {
           </div>
           <h2 className="text-2xl font-bold text-white mb-6">Create a Post</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-gray-400 mb-2">Headline / Title *</label>
-              <input type="text" placeholder="e.g. Frontend Dev looking for a Hackathon Team" className="w-full bg-[#1a1a24] border border-gray-700 rounded-lg p-3 text-white" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-gray-400 mb-2">Headline / Title *</label>
+                <input type="text" placeholder="e.g. Frontend Dev looking for a Hackathon Team" className="w-full bg-[#1a1a24] border border-gray-700 rounded-lg p-3 text-white" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} />
+              </div>
+              <div>
+                <label className="block text-gray-400 mb-2">Description *</label>
+                <input type="text" placeholder="Short description about yourself" className="w-full bg-[#1a1a24] border border-gray-700 rounded-lg p-3 text-white" required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} />
+              </div>
             </div>
-            <div>
-              <label className="block text-gray-400 mb-2">Description *</label>
-              <textarea rows={3} className="w-full bg-[#1a1a24] border border-gray-700 rounded-lg p-3 text-white" required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})}></textarea>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-gray-400 mb-2">Branch *</label>
+                <input type="text" placeholder="e.g. CSE" className="w-full bg-[#1a1a24] border border-gray-700 rounded-lg p-3 text-white" required value={formData.branch} onChange={e => setFormData({...formData, branch: e.target.value})} />
+              </div>
+              <div>
+                <label className="block text-gray-400 mb-2">Year *</label>
+                <input type="text" placeholder="e.g. 3rd Year" className="w-full bg-[#1a1a24] border border-gray-700 rounded-lg p-3 text-white" required value={formData.year} onChange={e => setFormData({...formData, year: e.target.value})} />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-gray-400 mb-2">GitHub Profile Link</label>
+                <input type="url" placeholder="https://github.com/..." className="w-full bg-[#1a1a24] border border-gray-700 rounded-lg p-3 text-white" value={formData.githubLink} onChange={e => setFormData({...formData, githubLink: e.target.value})} />
+              </div>
+              <div>
+                <label className="block text-gray-400 mb-2">LinkedIn Profile Link</label>
+                <input type="url" placeholder="https://linkedin.com/in/..." className="w-full bg-[#1a1a24] border border-gray-700 rounded-lg p-3 text-white" value={formData.linkedinLink} onChange={e => setFormData({...formData, linkedinLink: e.target.value})} />
+              </div>
             </div>
             <div>
               <label className="block text-gray-400 mb-2">Skills (Type and press Enter)</label>
@@ -252,20 +284,35 @@ const TeamFinderPage: React.FC = () => {
                 <div className="flex justify-between items-center mb-4">
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-semibold">Posted By</p>
-                    <p className="text-gray-300 text-sm">{post.userName}</p>
+                    <p className="text-gray-300 text-sm font-semibold">{post.userName}</p>
+                    <p className="text-gray-500 text-xs">{post.branch} • {post.year}</p>
                   </div>
                   {post.lookingFor && (
                     <div className="text-right">
                       <p className="text-xs text-gray-500 uppercase font-semibold">Looking For</p>
-                      <p className="text-emerald-400 text-sm">{post.lookingFor}</p>
+                      <p className="text-emerald-400 text-sm font-semibold">{post.lookingFor}</p>
                     </div>
                   )}
                 </div>
+                
+                <div className="flex gap-2 mb-3">
+                  {post.githubLink && (
+                    <a href={post.githubLink} target="_blank" rel="noreferrer" className="flex-1 text-center bg-gray-800 hover:bg-gray-700 text-white py-1.5 rounded-lg text-sm transition-colors border border-gray-700">
+                      GitHub
+                    </a>
+                  )}
+                  {post.linkedinLink && (
+                    <a href={post.linkedinLink} target="_blank" rel="noreferrer" className="flex-1 text-center bg-blue-900/40 hover:bg-blue-800/60 text-blue-300 py-1.5 rounded-lg text-sm transition-colors border border-blue-800/50">
+                      LinkedIn
+                    </a>
+                  )}
+                </div>
+
                 <a
                   href={post.contactInfo.includes('http') ? post.contactInfo : `mailto:${post.contactInfo}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="block w-full text-center bg-[#1a1a24] hover:bg-[#252535] text-white py-2 rounded-lg transition-colors border border-gray-700 font-semibold"
+                  className="block w-full text-center bg-[#1a1a24] hover:bg-[#252535] text-white py-2 rounded-lg transition-colors border border-gray-700 font-semibold mt-2"
                 >
                   Connect
                 </a>

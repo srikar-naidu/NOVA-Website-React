@@ -1,12 +1,15 @@
 import express from 'express';
-import { getPosts, createPost, closePost, deletePost } from '../controllers/teamfinder.controller.js';
-import { authenticateUser } from '../middleware/auth.middleware.js';
+import { requireAuth } from '@clerk/express';
+import * as teamFinderController from '../controllers/teamFinder.controller.js';
 
 const router = express.Router();
 
-router.get('/teamfinder', getPosts);
-router.post('/teamfinder', authenticateUser, createPost);
-router.patch('/teamfinder/:id/close', authenticateUser, closePost);
-router.delete('/teamfinder/:id', authenticateUser, deletePost);
+// Public route to get open posts
+router.get('/', teamFinderController.getPosts);
+
+// Protected routes using Clerk Auth middleware
+router.post('/', requireAuth(), teamFinderController.createPost);
+router.patch('/:id/close', requireAuth(), teamFinderController.closePost);
+router.delete('/:id', requireAuth(), teamFinderController.deletePost);
 
 export default router;

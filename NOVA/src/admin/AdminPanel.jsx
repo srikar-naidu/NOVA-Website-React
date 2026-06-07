@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import NotionMembersDatabase from './NotionMembersDatabase';
+import ProjectUpload from './ProjectUpload';
 
 const AdminPanel = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -499,6 +501,11 @@ const AdminPanel = () => {
             </div>
           ))
         )}
+      </div>
+
+      {/* Project Upload Section - Always available to admins at bottom or in a new tab if you prefer, but putting it at the bottom for now */}
+      <div className="max-w-7xl mx-auto px-4 pb-12">
+        <ProjectUpload />
       </div>
     </div>
   );

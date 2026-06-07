@@ -10,6 +10,7 @@ import Register from './pages/Register'
 import Sprints from './pages/Sprints'
 import IdeasprintPage from './pages/IdeasprintPage'
 import TeamFinderPage from './pages/TeamFinderPage'
+import ShowcasePage from './pages/ShowcasePage'
 
 const Rules: React.FC = (): React.JSX.Element => <div>Rules Page</div>
 
@@ -32,7 +33,8 @@ const AppContent: React.FC = (): React.JSX.Element => {
           <Route path="/ideasprint" element={<IdeasprintPage />} />
           <Route path="/rules" element={<Rules />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/teamfinder" element={<TeamFinderPage />} />
+          <Route path="/find-squad" element={<TeamFinderPage />} />
+          <Route path="/showcase" element={<ShowcasePage />} />
           <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </main>

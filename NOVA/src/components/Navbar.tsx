@@ -19,7 +19,7 @@ const Navbar: React.FC = (): React.JSX.Element => {
   }
 
   return (
-    <nav className="navbar" style={{ background: '#0a0a0f' }}>
+    <nav className="navbar bg-[#0a0a0f]">
       <div className="logo">
         <img src="/images/hero/NOVA LOGo.jpg" alt="NOVA Logo" className="logo-image" />
         <div className="logo-text">
@@ -59,11 +59,20 @@ const Navbar: React.FC = (): React.JSX.Element => {
           </li>
           <li>
             <Link
-              to="/teamfinder"
-              className={isActiveLink('/teamfinder') ? 'active' : ''}
+              to="/find-squad"
+              className={isActiveLink('/find-squad') ? 'active' : ''}
               onClick={closeMenu}
             >
               Find Squad
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/showcase"
+              className={isActiveLink('/showcase') ? 'active' : ''}
+              onClick={closeMenu}
+            >
+              Showcase
             </Link>
           </li>
           <li>
